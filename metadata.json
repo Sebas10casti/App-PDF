@@ -1,0 +1,6 @@
+{
+  "name": "FolioPDF",
+  "description": "Estudio móvil para unir PDFs, convertir imágenes PNG/JPEG a PDF, firmar documentos con ubicación libre, leer y organizar archivos en carpetas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
