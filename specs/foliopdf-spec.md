@@ -22,6 +22,7 @@
 | **RF-05** | **Firmar PDF (Ubicación Libre)** | Visor de página del PDF objetivo, selector de página, bandeja de firmas guardadas y superposición flotante interactiva que permite arrastrar libremente la firma y ajustar su escala en cualquier punto de la página. Estampado permanente en coordenadas PDF exactas vía `PDPageContentStream`. |
 | **RF-06** | **Lector de PDF** | Renderizado de páginas con `android.graphics.pdf.PdfRenderer`, gestos de zoom (*pinch-to-zoom* y doble toque) y paneo, indicador y deslizador rápido de páginas, modo lectura nocturna (inversión suave), y accesos directos para firmar, exportar o compartir (`FileProvider`). |
 | **RF-07** | **Organizador de Archivos** | Carpetas personalizadas con color, marcado de favoritos, búsqueda por nombre en tiempo real y filtros por categoría (*Todos*, *Favoritos*, *Unidos*, *Imágenes*, *Firmados*, *Importados*). Acciones por documento: abrir, firmar, mover de carpeta, renombrar, exportar (`CreateDocument`), compartir y eliminar. |
+| **RF-08** | **Modo de Pruebas QA (Usuario Test)** | Puerta trasera de pruebas en `AuthScreen`: al tocar 5 veces consecutivas sobre la fila *"Une PDFs y convierte PNG/JPEG"* (en una ventana <= 3 s) se muestra un diálogo para ingresar un nombre de usuario de prueba. Inicia una sesión local aislada (`LocalTestLibraryRepository` con persistencia JSON en `filesDir/test_sandbox/`) sin tocar Firestore ni Firebase Auth, permitiendo probar todas las herramientas de PDF y cerrar el modo test desde `AccountScreen`. |
 
 ---
 
@@ -77,12 +78,12 @@ Todas las colecciones están aisladas por usuario bajo `/users/{userId}/...` con
 
 ```
 UI (Compose + Material 3 + Navigation Compose)
-  ├── AuthScreen (CredentialManager Google Sign-In)
-  └── FolioAppShell (key = uid)
+  ├── AuthScreen (CredentialManager Google Sign-In + Puerta trasera QA 5 toques)
+  └── FolioAppShell (key = uid / testUser)
         ├── HomeToolsScreen (Hub de herramientas + Recientes)
         ├── FilesOrganizerScreen (Carpetas, Búsqueda, Filtros, Favoritos)
         ├── SignaturesVaultScreen (Bóveda + Lienzo de Firma)
-        ├── AccountScreen (Perfil Google, Estado de Sync, Cerrar Sesión)
+        ├── AccountScreen (Perfil Google o Modo Test QA, Estado de Sync, Cerrar Sesión)
         ├── MergePdfScreen (Unir PDFs)
         ├── ImagesToPdfScreen (PNG/JPEG -> PDF)
         ├── PdfReaderScreen (Lector PdfRenderer + Zoom + Modo Oscuro)
@@ -96,7 +97,9 @@ ViewModels (StateFlow + UiState<T>)
               │
               ▼
 Servicios y Repositorios
-  ├── FirestoreLibraryRepository (snapshots() + Result<T> + handleFirestoreError)
+  ├── LibraryRepository (interfaz común)
+  │     ├── FirestoreLibraryRepository (snapshots() + Result<T> + handleFirestoreError)
+  │     └── LocalTestLibraryRepository (sandbox JSON local para usuario test QA)
   └── PdfEngineService (PDFBox-Android + PdfRenderer + FileProvider)
 ```
 

@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "FolderItem": {
+      "title": "FolderItem",
+      "description": "Carpeta personalizada del usuario para organizar documentos PDF.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID del propietario autenticado."
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre de la carpeta (1 a 50 caracteres)."
+        },
+        "colorHex": {
+          "type": "string",
+          "description": "Color identificador de la carpeta en formato #RRGGBB."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de creación asignada por FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de actualización asignada por FieldValue.serverTimestamp()."
+        }
+      },
+      "required": ["userId", "name", "colorHex", "createdAt", "updatedAt"]
+    },
+    "PdfDocumentItem": {
+      "title": "PdfDocumentItem",
+      "description": "Registro sincronizado de un documento PDF procesado u organizado.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID del propietario autenticado."
+        },
+        "title": {
+          "type": "string",
+          "description": "Título visible del documento (1 a 120 caracteres)."
+        },
+        "fileName": {
+          "type": "string",
+          "description": "Nombre de archivo .pdf (1 a 160 caracteres)."
+        },
+        "folderId": {
+          "type": "string",
+          "description": "Identificador opcional de la carpeta contenedora."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["merged", "converted", "signed", "imported"],
+          "description": "Categoría de origen o acción del documento."
+        },
+        "favorite": {
+          "type": "boolean",
+          "description": "Indica si el documento está marcado como favorito."
+        },
+        "pageCount": {
+          "type": "integer",
+          "description": "Cantidad de páginas del documento PDF."
+        },
+        "fileSizeBytes": {
+          "type": "integer",
+          "description": "Tamaño del archivo en bytes."
+        },
+        "localPath": {
+          "type": "string",
+          "description": "Ruta local interna del binario PDF en el dispositivo."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de creación asignada por FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de actualización asignada por FieldValue.serverTimestamp()."
+        },
+        "lastOpenedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Última apertura en el lector (opcional, FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "fileName",
+        "category",
+        "favorite",
+        "pageCount",
+        "fileSizeBytes",
+        "localPath",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SavedSignature": {
+      "title": "SavedSignature",
+      "description": "Firma manuscrita guardada en la bóveda del usuario.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID del propietario autenticado."
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre descriptivo de la firma (1 a 60 caracteres)."
+        },
+        "inkColorHex": {
+          "type": "string",
+          "description": "Color de tinta en formato #RRGGBB."
+        },
+        "imageBase64": {
+          "type": "string",
+          "description": "PNG transparente optimizado codificado en Base64."
+        },
+        "aspectRatio": {
+          "type": "number",
+          "description": "Relación ancho/alto de la firma."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de creación asignada por FieldValue.serverTimestamp()."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Marca temporal de actualización asignada por FieldValue.serverTimestamp()."
+        }
+      },
+      "required": [
+        "userId",
+        "name",
+        "inkColorHex",
+        "imageBase64",
+        "aspectRatio",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/folders/{folderId}": {
+      "schema": { "$ref": "#/entities/FolderItem" },
+      "description": "Carpetas personalizadas propiedad del usuario autenticado."
+    },
+    "/users/{userId}/documents/{documentId}": {
+      "schema": { "$ref": "#/entities/PdfDocumentItem" },
+      "description": "Catálogo organizado de documentos PDF propiedad del usuario autenticado."
+    },
+    "/users/{userId}/signatures/{signatureId}": {
+      "schema": { "$ref": "#/entities/SavedSignature" },
+      "description": "Bóveda sincronizada de firmas manuscritas propiedad del usuario autenticado."
+    }
+  }
+}

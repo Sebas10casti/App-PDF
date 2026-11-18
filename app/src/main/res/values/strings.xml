@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">FolioPDF</string>
+    <string name="auth_welcome_title">Tu estudio documental en el móvil</string>
+    <string name="auth_welcome_subtitle">Une PDFs, convierte imágenes, organiza tus carpetas y firma con tu rúbrica sincronizada en la nube.</string>
+    <string name="auth_sign_in_google">Continuar con Google</string>
+    <string name="nav_home">Inicio</string>
+    <string name="nav_files">Archivos</string>
+    <string name="nav_signatures">Firmas</string>
+    <string name="nav_account">Cuenta</string>
+    <string name="tool_merge_title">Unir PDF</string>
+    <string name="tool_merge_desc">Combina varios PDF en un solo archivo ordenado</string>
+    <string name="tool_images_title">Imágenes a PDF</string>
+    <string name="tool_images_desc">Convierte fotos PNG y JPEG a páginas PDF</string>
+    <string name="tool_sign_title">Firmar PDF</string>
+    <string name="tool_sign_desc">Coloca tu firma libremente en cualquier página</string>
+    <string name="tool_reader_title">Lector PDF</string>
+    <string name="tool_reader_desc">Abre, amplía y lee documentos con comodidad</string>
+    <string name="action_import_pdf">Importar PDF</string>
+    <string name="action_new_folder">Nueva carpeta</string>
+    <string name="action_new_signature">Nueva firma</string>
+    <string name="cd_back">Volver</string>
+    <string name="cd_studio_hero">Ilustración editorial de escritorio documental</string>
+    <string name="cd_favorite">Marcar como favorito</string>
+    <string name="cd_more_options">Más opciones</string>
+    <string name="cd_share_pdf">Compartir PDF</string>
+    <string name="cd_export_pdf">Guardar copia en dispositivo</string>
+    <string name="cd_signature_preview">Vista previa de firma guardada</string>
+    <string name="cd_night_reading_mode">Alternar modo de lectura oscura</string>
 </resources>

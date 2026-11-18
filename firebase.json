@@ -1,0 +1,17 @@
+{
+  "firestore": [
+    {
+      "database": "ai-studio-android-foliopdf-479ac97c-c3de-4f57-b7a8-3e6e9308ade4",
+      "rules": "firestore.rules"
+    }
+  ],
+  "emulators": {
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8085
+    },
+    "ui": {
+      "enabled": false
+    }
+  }
+}
